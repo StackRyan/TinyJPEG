@@ -923,8 +923,8 @@ static void tjei_huff_expand(TJEState* state)
     }
 
     // Fill out the extended tables..
-    uint8_t huffsize[4][257];
-    uint16_t huffcode[4][256];
+    static uint8_t huffsize[4][257];
+    static uint16_t huffcode[4][256];
     for ( int i = 0; i < 4; ++i ) {
         assert (256 >= spec_tables_len[i]);
         tjei_huff_get_code_lengths(huffsize[i], state->ht_bits[i]);
@@ -1220,7 +1220,7 @@ int tje_encode_with_func(tje_write_func* func,
         return 0;
     }
 
-    TJEState state = { 0 };
+    static TJEState state = { 0 };
 
     uint8_t qt_factor = 1;
     switch(quality) {
